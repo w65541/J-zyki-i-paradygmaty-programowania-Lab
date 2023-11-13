@@ -24,9 +24,6 @@ lacz([G|O],L2,[G|W]):-
     lacz(O,L2,W).
 
 
-
-
-
 dodaj(X,L,[X|L]).
 
 
@@ -41,3 +38,21 @@ usuñ(X,[],N):-false.
 
 ostatni([X|[]],X).
 ostatni([G|O],W):-ostatni(O,W).
+
+poczatek([X|[]],[X|O]):-
+    true.
+poczatek([X|O1],[X|O2]):-
+    poczatek(O1,O2).
+poczatek([],[G2|O2]):-false.
+
+dek(X,n):-integer(X).
+dek(X,a):-atom(X).
+dek(X,.).
+dek(X,l):-atom(X)->false;true.
+dek(X,*).
+dopasuj([A|B],[X|Y],W):-
+   dek(A,X)->lacz(W,[A],W1),dopasuj(B,Y,W1);
+   dopasuj(B,[X|Y],W).
+dopasuj([A|B],[X|[]],W):-
+   dek(A,X)->lacz(W,[A],W1),write(W1);
+    dopasuj(B,[X|[]],W) .
